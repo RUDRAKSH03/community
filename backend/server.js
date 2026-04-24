@@ -1,6 +1,7 @@
+const express = require('express');
+const app = express();
 console.log("Server starting...");
 const path = require('path');
-const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
