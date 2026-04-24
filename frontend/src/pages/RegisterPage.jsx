@@ -24,20 +24,27 @@ function RegisterPage() {
   const [locationLoading, setLocationLoading] = useState(false)
 
   const onSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-    try {
-      await register(form)
-      success('Account created')
-      navigate('/dashboard', { replace: true })
-    } catch (err) {
-      setError(err.message)
-      toastError(err.message)
-    } finally {
-      setLoading(false)
-    }
+  e.preventDefault()
+  setLoading(true)
+  setError('')
+
+  try {
+    await register({
+      name: form.name,
+      email: form.email,
+      password: form.password
+    })
+
+    success('Account created')
+    navigate('/dashboard', { replace: true })
+
+  } catch (err) {
+    setError(err.message)
+    toastError(err.message)
+  } finally {
+    setLoading(false)
   }
+}
 
   const fields = [
     { key: 'name', label: 'Full Name', type: 'text' },
