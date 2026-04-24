@@ -1,11 +1,17 @@
 const { Sequelize } = require('sequelize');
 const { env } = require('./env');
 
+console.log("🔍 Using DB CONFIG:");
+console.log("HOST:", env.db.host);
+console.log("USER:", env.db.user);
+console.log("DB:", env.db.name);
+console.log("PORT:", env.db.port);
+
 const sequelize = new Sequelize(env.db.name, env.db.user, env.db.password, {
   host: env.db.host,
   port: env.db.port,
   dialect: 'mysql',
-  logging: env.nodeEnv === 'development' ? false : false,
+  logging: false,
   dialectOptions: env.db.ssl
     ? {
         ssl: {
@@ -28,20 +34,23 @@ const sequelize = new Sequelize(env.db.name, env.db.user, env.db.password, {
 });
 
 async function connectDb() {
-  // RDS connections can briefly fail during warmup; retry a few times.
   const maxAttempts = 5;
   let lastErr;
+
   for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
     try {
-      // eslint-disable-next-line no-await-in-loop
+      console.log(`🔌 DB connection attempt ${attempt}...`);
       await sequelize.authenticate();
+      console.log("✅ DB CONNECTED SUCCESSFULLY");
       return;
     } catch (e) {
+      console.error(`❌ Attempt ${attempt} failed:`, e.message);
       lastErr = e;
-      // eslint-disable-next-line no-await-in-loop
       await new Promise((r) => setTimeout(r, attempt * 1000));
     }
   }
+
+  console.error("🚨 FINAL DB CONNECTION FAILED");
   throw lastErr;
 }
 
