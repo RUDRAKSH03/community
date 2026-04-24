@@ -1,0 +1,26 @@
+const Roles = Object.freeze({
+  USER: 'USER',
+  DEPARTMENT_ADMIN: 'DEPARTMENT_ADMIN',
+  AREA_ADMIN: 'AREA_ADMIN',
+  SUPER_ADMIN: 'SUPER_ADMIN',
+});
+
+const ComplaintStatus = Object.freeze({
+  SUBMITTED: 'SUBMITTED',
+  REVIEWED: 'REVIEWED',
+  ASSIGNED: 'ASSIGNED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  RESOLVED: 'RESOLVED',
+  CLOSED: 'CLOSED',
+  REOPENED: 'REOPENED',
+});
+
+const NotificationType = Object.freeze({
+  COMPLAINT_SUBMITTED: 'COMPLAINT_SUBMITTED',
+  COMPLAINT_ASSIGNED: 'COMPLAINT_ASSIGNED',
+  COMPLAINT_RESOLVED: 'COMPLAINT_RESOLVED',
+  SOS: 'SOS',
+  ESCALATION: 'ESCALATION',
+});
+
+module.exports = { Roles, ComplaintStatus, NotificationType };

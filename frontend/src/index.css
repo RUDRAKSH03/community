@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* ─── BASE ─── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::selection {
+  background: #E8DEF8; /* sec-container */
+  color: #1C1B1F;
+}
+
+body {
+  font-family: 'Roboto', system-ui, sans-serif;
+  background-color: #FFFBFE;
+  color: #1C1B1F;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ─── AMBIENT BACKGROUND ─── */
+.bg-blur-shape-1 {
+  position: fixed;
+  top: -10%;
+  right: -5%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(103, 80, 164, 0.08) 0%, rgba(255, 251, 254, 0) 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bg-blur-shape-2 {
+  position: fixed;
+  bottom: -10%;
+  left: -5%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(125, 82, 96, 0.06) 0%, rgba(255, 251, 254, 0) 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ─── MATERIAL CARDS ─── */
+.md-card {
+  @apply bg-md-surface rounded-[24px] shadow-none transition-all duration-300 ease-material;
+}
+.md-card:hover {
+  @apply shadow-md-2 -translate-y-0.5;
+}
+
+/* ─── MATERIAL BUTTONS ─── */
+.md-btn-primary {
+  @apply bg-md-primary text-white rounded-full px-6 py-2.5 font-medium transition-all duration-300 ease-material active:scale-[0.97] hover:shadow-md-1 hover:bg-opacity-90;
+}
+
+.md-btn-secondary {
+  @apply bg-md-sec-container text-md-text rounded-full px-6 py-2.5 font-medium transition-all duration-300 ease-material active:scale-[0.97] hover:bg-opacity-80;
+}
+
+.md-fab {
+  @apply bg-md-tertiary text-white rounded-2xl w-14 h-14 flex items-center justify-center shadow-md-2 transition-all duration-300 ease-material active:scale-[0.95] hover:shadow-md-3 hover:-translate-y-1;
+}
+
+/* ─── MATERIAL FILLED INPUTS ─── */
+.md-input-container {
+  @apply relative w-full rounded-t-lg bg-md-surface-low px-4 pt-6 pb-2 border-b border-md-text-sec transition-colors duration-300;
+}
+.md-input-container:focus-within {
+  @apply border-md-primary border-b-2 bg-md-surface;
+}
+.md-input {
+  @apply w-full bg-transparent text-md-text outline-none text-base placeholder-transparent;
+}
+.md-label {
+  @apply absolute left-4 top-4 text-sm text-md-text-sec transition-all duration-300 pointer-events-none;
+}
+.md-input:focus ~ .md-label,
+.md-input:not(:placeholder-shown) ~ .md-label {
+  @apply text-xs top-1.5 text-md-primary;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FFFBFE;
+}
+::-webkit-scrollbar-thumb {
+  background: #E7E0EC;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6750A4;
+}
