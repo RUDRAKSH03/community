@@ -23,12 +23,8 @@ export function AuthProvider({ children }) {
     return { user: nextUser }
   }
 
- const register = async (payload) => {
-  const response = await api.post('/auth/register', {
-    name: payload.name,
-    email: payload.email,
-    password: payload.password
-  })
+  const register = async (payload) => {
+    const response = await api.post('/auth/register', payload)
 
   const nextToken = response.data.token
   const nextUser = response.data.user

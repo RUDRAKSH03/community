@@ -28,12 +28,12 @@ function RegisterPage() {
   setLoading(true)
   setError('')
 
+  const payload = { ...form }
+  if (payload.latitude === '') delete payload.latitude
+  if (payload.longitude === '') delete payload.longitude
+
   try {
-    await register({
-      name: form.name,
-      email: form.email,
-      password: form.password
-    })
+    await register(payload)
 
     success('Account created')
     navigate('/dashboard', { replace: true })

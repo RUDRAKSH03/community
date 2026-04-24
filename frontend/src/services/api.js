@@ -17,8 +17,12 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error("API ERROR:", error);
-    const message = error?.response?.data?.message || error.message || 'Request failed'
-    return Promise.reject(new Error(message))
+    const data = error?.response?.data;
+    let message = data?.message || error.message || 'Request failed';
+    if (data?.details && Array.isArray(data.details)) {
+      message = `${message}: ${data.details.join(', ')}`;
+    }
+    return Promise.reject(new Error(message));
   },
 )
 
