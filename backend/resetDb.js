@@ -32,5 +32,10 @@ async function reset() {
 
 reset().catch(e => {
   console.error(e);
-  process.exit(1);
+try {
+  await sequelize.authenticate();
+  console.log("DB Connected");
+} catch (err) {
+  console.error("DB Error:", err.message);
+}
 });

@@ -1,3 +1,4 @@
+console.log("Server starting...");
 const path = require('path');
 const express = require('express');
 const helmet = require('helmet');
@@ -68,6 +69,11 @@ app.get("/", (req, res) => {
     console.log(`API listening on port ${env.port}`);
   });
 }
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => {
+  console.log(`API running on port ${PORT}`);
+});
 
 bootstrap().catch((err) => {
   // eslint-disable-next-line no-console
