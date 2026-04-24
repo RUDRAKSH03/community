@@ -1,6 +1,4 @@
 const express = require('express');
-const app = express();
-console.log("Server starting...");
 const path = require('path');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -21,6 +19,9 @@ const { complaintRoutes } = require('./routes/complaintRoutes');
 const { adminRoutes } = require('./routes/adminRoutes');
 const { departmentRoutes } = require('./routes/departmentRoutes');
 const { statsRoutes } = require('./routes/statsRoutes');
+
+console.log("Server starting...");
+
 async function bootstrap() {
   await connectDb();
   if (env.forceRecreateComplaints) await recreateComplaintsTable();
@@ -28,12 +29,16 @@ async function bootstrap() {
   if (env.nodeEnv === 'development') await seedBasics();
 
   const app = express();
-app.get("/", (req, res) => {
-  res.send("Backend is running 🚀");
-});
+
   app.set('trust proxy', 1);
   app.use(helmet());
-  app.use(cors());
+  
+  app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  }));
+
   app.use(express.json({ limit: '2mb' }));
   app.use(express.urlencoded({ extended: true }));
   app.use(morgan('dev'));
@@ -50,6 +55,10 @@ app.get("/", (req, res) => {
   // Static uploads (local storage)
   app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+  app.get("/", (req, res) => {
+    res.send("API is running");
+  });
+
   // Health check
   app.get('/health', (req, res) => res.json({ ok: true, env: env.nodeEnv }));
 
@@ -65,19 +74,13 @@ app.get("/", (req, res) => {
   app.use((req, res, next) => next(new AppError('Not Found', 404)));
   app.use(errorMiddleware);
 
-  app.listen(env.port, () => {
-    // eslint-disable-next-line no-console
-    console.log(`API listening on port ${env.port}`);
+  const PORT = process.env.PORT || env.port || 8000;
+  app.listen(PORT, () => {
+    console.log(`API running on port ${PORT}`);
   });
 }
-const PORT = process.env.PORT || 8000;
-
-app.listen(PORT, () => {
-  console.log(`API running on port ${PORT}`);
-});
 
 bootstrap().catch((err) => {
-  // eslint-disable-next-line no-console
   console.error('Fatal startup error:', err);
   process.exit(1);
 });

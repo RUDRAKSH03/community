@@ -96,7 +96,7 @@ function MyComplaintsPage() {
             >
               {item.before_image ? (
                 <div className="h-48 overflow-hidden bg-md-surface-low">
-                  <img src={`http://localhost:8000${item.before_image}`} alt={item.title} className="h-full w-full object-cover" />
+                  <img src={`https://community-backend-8pqm.onrender.com${item.before_image}`} alt={item.title} className="h-full w-full object-cover" />
                 </div>
               ) : (
                 <div className="h-48 bg-md-surface-low flex items-center justify-center text-md-text-sec/50 text-sm">

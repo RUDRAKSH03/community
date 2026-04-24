@@ -16,9 +16,7 @@ const reveal = {
     transition: { duration: 0.6, delay: i * 0.1, ease: [0.2, 0, 0, 1] },
   }),
 }
-
-const API_BASE = "http://localhost:8000"
-
+const API_BASE = "https://community-backend-8pqm.onrender.com"
 function DashboardPage() {
   const { user } = useAuth()
   const { success, error: toastError } = useToast()
